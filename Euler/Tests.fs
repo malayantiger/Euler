@@ -33,6 +33,14 @@ module Tests =
         |> should equal 1366
 
     [<Test>]
+    let ``Problem 17 - Number letter counts`` () =
+        Number.thousandWords
+        |> List.map snd
+        |> List.map Text.countLetters
+        |> List.reduce (+)
+        |> should equal 21124
+
+    [<Test>]
     let ``Problem 20 - Factorial digit sum`` () = 
         100
         |> Factorial.value

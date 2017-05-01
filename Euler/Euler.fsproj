@@ -59,6 +59,7 @@
     <Compile Include="Number.fs" />
     <Compile Include="Fibonacci.fs" />
     <Compile Include="Factorial.fs" />
+    <Compile Include="Text.fs" />
     <Compile Include="Tests.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
