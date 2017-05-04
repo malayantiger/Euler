@@ -15,10 +15,16 @@ module Tests =
     let ``Problem 02 - Even Fibonacci numbers`` () =
         Fibonacci.infiniteSeq
         |> Seq.takeWhile (fun x  -> x < 4000000I)
-        |> Seq.filter (fun x -> x % 2I = 0I)
+        |> Seq.filter (Number.isDivisibleBy 2I)
         |> Seq.sum
         |> should equal 4613732I
     
+    [<Test>]
+    let ``Problem 05 - Smallest multiple`` () =
+        Number.natInfiniteSeq
+        |> Seq.find (Number.isDivisibleBy2 [2..20])
+        |> should equal 232792560
+
     [<Test>]
     let ``Problem 06 - Sum square difference`` () =
         Number.natInfiniteSeq

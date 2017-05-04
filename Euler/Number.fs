@@ -65,4 +65,7 @@ module Number =
         } 
         |> Seq.sortBy snd
         |> List.ofSeq
-        
+
+    let inline isDivisibleBy n x = x % n = LanguagePrimitives.GenericZero
+
+    let isDivisibleBy2 ns x = ns |> Seq.forall (fun n -> isDivisibleBy n x)
