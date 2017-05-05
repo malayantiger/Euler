@@ -4,6 +4,8 @@ module Tests =
 
     open NUnit.Framework
     open FsUnit
+    open System.IO
+    open System.Numerics
 
     [<Test>]
     let ``Problem 01 - Multiple of 3 and 5`` () =
@@ -31,6 +33,17 @@ module Tests =
         |> Seq.take 100
         |> Number.sumSquareDiff
         |> should equal 25164150
+
+    [<Test>]
+    let ``Problem 13 - Large sum`` () =
+        __SOURCE_DIRECTORY__ + "\problem13Input.txt"
+        |> File.ReadAllLines
+        |> Seq.map BigInteger.Parse
+        |> Seq.reduce (+)
+        |> Digit.seq
+        |> Seq.take 10
+        |> Digit.toNumber
+        |> should equal 5537376230I
 
     [<Test>]
     let ``Problem 16 - Power digit sum`` () =
