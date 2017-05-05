@@ -66,6 +66,15 @@ module Number =
         |> Seq.sortBy snd
         |> List.ofSeq
 
-    let inline isDivisibleBy n x = x % n = LanguagePrimitives.GenericZero
+    let gcd a b = 
+        let rec gcd' a b =
+            match b with 
+            | 0 -> a
+            | _ -> gcd' b (a % b)
+        gcd' a b
+    
+    let gcd2 ns = Seq.reduce gcd ns
 
-    let isDivisibleBy2 ns x = ns |> Seq.forall (fun n -> isDivisibleBy n x)
+    let lcm a b = (abs a) / (gcd a b) * b
+
+    let lcm2 ns = Seq.reduce lcm ns
