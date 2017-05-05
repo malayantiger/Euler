@@ -22,6 +22,12 @@ module Tests =
         |> should equal 4613732I
     
     [<Test>]
+    let ``Problem 04 - Largest palindrome product`` () =
+        12321I
+        |> Number.isPalindrome
+        |> printf "%A"
+
+    [<Test>]
     let ``Problem 05 - Smallest multiple`` () =
         [1..20] 
         |> Number.lcm2
@@ -40,15 +46,15 @@ module Tests =
         |> File.ReadAllLines
         |> Seq.map BigInteger.Parse
         |> Seq.reduce (+)
-        |> Digit.seq
+        |> Digits.ofNumber
         |> Seq.take 10
-        |> Digit.toNumber
+        |> Number.ofDigits
         |> should equal 5537376230I
 
     [<Test>]
     let ``Problem 16 - Power digit sum`` () =
         2I ** 1000
-        |> Digit.sum
+        |> Digits.sum
         |> should equal 1366
 
     [<Test>]
@@ -63,7 +69,7 @@ module Tests =
     let ``Problem 20 - Factorial digit sum`` () = 
         100
         |> Factorial.value
-        |> Digit.sum
+        |> Digits.sum
         |> should equal 648
 
     [<Test>]

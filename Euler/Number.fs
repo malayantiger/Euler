@@ -6,7 +6,13 @@ module Number =
 
     let natInfiniteSeq = infiniteSeq |> Seq.skip 1
 
-    let hasNDigits n x = (Digit.count x) = n
+    let ofDigits xs = 
+        let multiplier = 10I ** (xs |> Seq.length |> (-) <| 1)
+        xs 
+        |> Seq.fold (fun (n, factor) x -> (n + x * factor, factor / 10I)) (0I, multiplier)
+        |> fst
+
+    let hasNDigits n x = (Digits.count x) = n
 
     let findWithNDigits n = Seq.find (hasNDigits n)
 
@@ -78,3 +84,14 @@ module Number =
     let lcm a b = (abs a) / (gcd a b) * b
 
     let lcm2 ns = Seq.reduce lcm ns
+
+    let isPalindrome = 
+        let isPalindrome' = (function
+            | (xs, ys) when (xs |> List.length) = (ys |> List.length) -> (xs, ys |> List.rev)
+            | (xs, y::ys') -> (xs, ys' |> List.rev)
+            | halfs -> halfs) >> fun (xs, ys) -> xs = ys
+
+        Digits.ofNumber
+        >> List.ofSeq
+        >> List'.equalPartition
+        >> isPalindrome'
