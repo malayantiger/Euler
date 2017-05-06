@@ -18,10 +18,6 @@ module Number =
 
     let findIndexWithNDigits n = Seq.findIndex (hasNDigits n)
 
-    let isMultipleOf3Or5 x = x % 3 = 0 || x % 5 = 0
-
-    let sumMultiplesOf3Or5Below n = n |> Seq.take >> Seq.filter isMultipleOf3Or5 >> Seq.sum
-
     let sumOfSquares xs = Seq.fold (fun s x -> s + x*x) 0 xs
 
     let squareOfSums xs = pown (Seq.sum xs) 2
@@ -85,13 +81,11 @@ module Number =
 
     let lcm2 ns = Seq.reduce lcm ns
 
-    let isPalindrome = 
-        let isPalindrome' = (function
-            | (xs, ys) when (xs |> List.length) = (ys |> List.length) -> (xs, ys |> List.rev)
-            | (xs, y::ys') -> (xs, ys' |> List.rev)
-            | halfs -> halfs) >> fun (xs, ys) -> xs = ys
+    let reverse n =
+        let rec reverse' n' rev =
+            let digit = n' % 10I
+            if n' = 0I then rev
+            else reverse' (n' / 10I) (rev * 10I + digit)
+        reverse' n 0I
 
-        Digits.ofNumber
-        >> List.ofSeq
-        >> List'.equalPartition
-        >> isPalindrome'
+    let isPalindrome n = n = reverse n

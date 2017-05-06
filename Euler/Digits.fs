@@ -6,8 +6,6 @@ module Digits =
 
     let count = BigInteger.Log10 >> ceil >> int
 
-    let ofNumber n = 
-        let multiplier = 10I ** (n |> count |> (-) <| 1)
-        Seq.unfold (fun (x, factor) -> if x <> 0I then Some(x / factor, (x % factor, factor / 10I)) else None) (n, multiplier)
+    let ofNumber = Seq.unfold (fun b -> if b <> 0I then Some(b % 10I, (b / 10I)) else None)
 
     let sum = ofNumber >> Seq.sum >> int

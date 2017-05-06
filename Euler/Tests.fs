@@ -6,13 +6,15 @@ module Tests =
     open FsUnit
     open System.IO
     open System.Numerics
+    open FSharp.Collections.ParallelSeq
 
     [<Test>]
     let ``Problem 01 - Multiple of 3 and 5`` () =
-        Number.infiniteSeq
-        |> Number.sumMultiplesOf3Or5Below 1000
+        [1..999]
+        |> Seq.filter (fun x -> x % 3 = 0 || x % 5 = 0)
+        |> Seq.sum
         |> should equal 233168
-    
+
     [<Test>]
     let ``Problem 02 - Even Fibonacci numbers`` () =
         Fibonacci.infiniteSeq
@@ -23,9 +25,14 @@ module Tests =
     
     [<Test>]
     let ``Problem 04 - Largest palindrome product`` () =
-        12321I
-        |> Number.isPalindrome
-        |> printf "%A"
+        seq {
+            for x in [101I..999I] do
+            for y in [101I..999I] do
+                let product = x * y
+                if product |> Number.isPalindrome then yield product
+        }
+        |> Seq.max
+        |> should equal 906609I
 
     [<Test>]
     let ``Problem 05 - Smallest multiple`` () =
