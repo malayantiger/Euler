@@ -4,7 +4,6 @@ module Tests =
 
     open NUnit.Framework
     open FsUnit
-    open System.IO
     open System.Numerics
     open FSharp.Collections.ParallelSeq
 
@@ -49,8 +48,7 @@ module Tests =
 
     [<Test>]
     let ``Problem 13 - Large sum`` () =
-        __SOURCE_DIRECTORY__ + "\problem13Input.txt"
-        |> File.ReadAllLines
+        File'.readInput 13
         |> Seq.map BigInteger.Parse
         |> Seq.reduce (+)
         |> Digits.ofNumber
@@ -78,6 +76,16 @@ module Tests =
         |> Factorial.value
         |> Digits.sum
         |> should equal 648
+
+    [<Test>]
+    let ``Problem 22 - Name scores`` () = 
+        File'.readInput 22
+        |> Seq.collect (fun x -> x.Split(','))
+        |> Seq.map (fun x -> x.Replace("\"", ""))
+        |> Seq.sort
+        |> Text.scores
+        |> Seq.sum
+        |> should equal 871198282
 
     [<Test>]
     let ``Problem 25 - 1000-digit Fibonacci number`` () = 
