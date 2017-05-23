@@ -89,3 +89,19 @@ module Number =
         reverse' n 0I
 
     let isPalindrome n = n = reverse n
+
+    let coPrimes n = 
+        natInfiniteSeq 
+        |> Seq.truncate (n-1) 
+        |> Seq.filter (fun x -> gcd n x = 1)
+
+    let sigma n =
+        let limit = sqrt (float n) |> floor |> int
+        natInfiniteSeq
+        |> Seq.truncate limit
+        |> Seq.fold (fun s x -> if n % x = 0 then s + x + (n / x) else s) 0
+        |> (-) <| n
+
+    let isAmicable n = 
+        let dn = sigma n
+        n <> dn && n = sigma dn

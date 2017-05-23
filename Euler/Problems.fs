@@ -1,6 +1,6 @@
 ﻿namespace Euler
 
-module Tests =
+module Problems =
 
     open NUnit.Framework
     open FsUnit
@@ -77,6 +77,13 @@ module Tests =
         |> Digits.sum
         |> should equal 648
 
+    [<Test>]
+    let ``Problem 21 - Amicable numbers`` () = 
+        [1..9999]
+        |> Seq.filter Number.isAmicable
+        |> Seq.sum
+        |> should equal 31626
+    
     [<Test>]
     let ``Problem 22 - Name scores`` () = 
         File'.readInput 22

@@ -62,7 +62,7 @@
     <Compile Include="Factorial.fs" />
     <Compile Include="Text.fs" />
     <Compile Include="File.fs" />
-    <Compile Include="Tests.fs" />
+    <Compile Include="Problems.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
