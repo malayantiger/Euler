@@ -16,12 +16,19 @@ module Problems =
 
     [<Test>]
     let ``Problem 02 - Even Fibonacci numbers`` () =
-        Fibonacci.infiniteSeq
+        Fibonacci.seq
         |> Seq.takeWhile (fun x  -> x < 4000000I)
         |> Seq.filter (fun x -> x % 2I = 0I)
         |> Seq.sum
         |> should equal 4613732I
     
+    [<Test>]
+    let ``Problem 03 - Largest prime factor`` () =
+        600851475143I
+        |> Math.primeFactors
+        |> Seq.max
+        |> should equal 6857I
+
     [<Test>]
     let ``Problem 04 - Largest palindrome product`` () =
         seq {
@@ -36,14 +43,14 @@ module Problems =
     [<Test>]
     let ``Problem 05 - Smallest multiple`` () =
         [1..20] 
-        |> Number.lcm2
+        |> Math.lcm2
         |> should equal 232792560
 
     [<Test>]
     let ``Problem 06 - Sum square difference`` () =
-        Number.natInfiniteSeq
+        Math.positiveIntegers
         |> Seq.take 100
-        |> Number.sumSquareDiff
+        |> Math.sumSquareDiff
         |> should equal 25164150
 
     [<Test>]
@@ -79,7 +86,7 @@ module Problems =
 
     [<Test>]
     let ``Problem 21 - Amicable numbers`` () = 
-        [1..9999]
+        [2..9999]
         |> Seq.filter Number.isAmicable
         |> Seq.sum
         |> should equal 31626
@@ -96,6 +103,6 @@ module Problems =
 
     [<Test>]
     let ``Problem 25 - 1000-digit Fibonacci number`` () = 
-        Fibonacci.infiniteSeq
+        Fibonacci.seq
         |> Fibonacci.findTermWithNDigits 1000 
         |> should equal 4782

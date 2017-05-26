@@ -2,10 +2,6 @@
 
 module Number = 
 
-    let infiniteSeq = Seq.initInfinite id
-
-    let natInfiniteSeq = infiniteSeq |> Seq.skip 1
-
     let ofDigits xs = 
         let multiplier = 10I ** (xs |> Seq.length |> (-) <| 1)
         xs 
@@ -17,12 +13,6 @@ module Number =
     let findWithNDigits n = Seq.find (hasNDigits n)
 
     let findIndexWithNDigits n = Seq.findIndex (hasNDigits n)
-
-    let sumOfSquares xs = Seq.fold (fun s x -> s + x*x) 0 xs
-
-    let squareOfSums xs = pown (Seq.sum xs) 2
-
-    let sumSquareDiff xs = (squareOfSums xs) - (sumOfSquares xs)
 
     let singleDigitsWords = seq [(1, "one"); (2, "two"); (3, "three"); (4, "four"); (5, "five"); (6, "six"); (7, "seven"); (8, "eight"); (9, "nine")]
 
@@ -68,19 +58,6 @@ module Number =
         |> Seq.sortBy snd
         |> List.ofSeq
 
-    let gcd a b = 
-        let rec gcd' a b =
-            match b with 
-            | 0 -> a
-            | _ -> gcd' b (a % b)
-        gcd' a b
-    
-    let gcd2 ns = Seq.reduce gcd ns
-
-    let lcm a b = (abs a) / (gcd a b) * b
-
-    let lcm2 ns = Seq.reduce lcm ns
-
     let reverse n =
         let rec reverse' n' rev =
             let digit = n' % 10I
@@ -90,18 +67,6 @@ module Number =
 
     let isPalindrome n = n = reverse n
 
-    let coPrimes n = 
-        natInfiniteSeq 
-        |> Seq.truncate (n-1) 
-        |> Seq.filter (fun x -> gcd n x = 1)
-
-    let sigma n =
-        let limit = sqrt (float n) |> floor |> int
-        natInfiniteSeq
-        |> Seq.truncate limit
-        |> Seq.fold (fun s x -> if n % x = 0 then s + x + (n / x) else s) 0
-        |> (-) <| n
-
     let isAmicable n = 
-        let dn = sigma n
-        n <> dn && n = sigma dn
+        let dn = Math.sigma n
+        n <> dn && n = Math.sigma dn
