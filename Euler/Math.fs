@@ -38,7 +38,7 @@ module Math =
         |> Seq.truncate (n-1) 
         |> Seq.filter (fun x -> isCoPrime n x)
     
-    let divisors (n: bigint) =
+    let divisors n =
         let divisors = 
             seq { 2I .. bigint(sqrtn n) }
             |> Seq.filter (fun x -> n % x = 0I)
@@ -46,6 +46,14 @@ module Math =
             yield! divisors
             yield! divisors |> Seq.map (fun x -> n / x)
         }
+
+    let primesTo n =
+        let xs = [2I .. n]
+        let rec eratos' xs ps =
+            match xs with
+            | [] -> ps
+            | p::xs' -> eratos' (xs' |> List.except (seq { yield p*p; yield! [p*p+p .. p .. n] })) (p::ps)
+        eratos' xs [] |> List.rev
 
     let primeFactors = divisors >> Seq.filter (fun x -> isPrimeBig x)
 

@@ -67,6 +67,7 @@
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
+    <Content Include="problem08Input.txt" />
     <Content Include="problem13Input.txt" />
     <Content Include="problem22Input.txt" />
   </ItemGroup>

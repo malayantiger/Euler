@@ -52,10 +52,20 @@ module Problems =
         |> Seq.take 100
         |> Math.sumSquareDiff
         |> should equal 25164150
+    
+    [<Test>]
+    let ``Problem 08 - Largest product in a series`` () =
+        File'.readInputAsLine 8
+        |> BigInteger.Parse
+        |> Digits.ofNumber
+        |> Digits.groupAdjacent 13
+        |> Seq.map (Seq.reduce (*))
+        |> Seq.max
+        |> should equal 23514624000I
 
     [<Test>]
     let ``Problem 13 - Large sum`` () =
-        File'.readInput 13
+        File'.readInputLines 13
         |> Seq.map BigInteger.Parse
         |> Seq.reduce (+)
         |> Digits.ofNumber
@@ -93,7 +103,7 @@ module Problems =
     
     [<Test>]
     let ``Problem 22 - Name scores`` () = 
-        File'.readInput 22
+        File'.readInputLines 22
         |> Seq.collect (fun x -> x.Split(','))
         |> Seq.map (fun x -> x.Replace("\"", ""))
         |> Seq.sort
