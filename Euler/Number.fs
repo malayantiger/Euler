@@ -8,9 +8,9 @@ module Number =
         |> Seq.fold (fun (n, factor) x -> (n + x * factor, factor / 10I)) (0I, multiplier)
         |> fst
 
-    let hasNDigits n x = (Digits.count x) = n
+    let hasNDigits n x = x |> Digits.count = n
 
-    let findWithNDigits n = Seq.find (hasNDigits n)
+    let findWithNDigits n = n |> hasNDigits |> Seq.find
 
     let findIndexWithNDigits n = Seq.findIndex (hasNDigits n)
 

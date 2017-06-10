@@ -94,6 +94,11 @@ module Problems =
         |> should equal 5537376230I
 
     [<Test>]
+    let ``Problem 15 - Lattice paths`` () =
+        Math.combinations 40 20
+        |> should equal 137846528820I
+
+    [<Test>]
     let ``Problem 16 - Power digit sum`` () =
         2I ** 1000
         |> Digits.sum

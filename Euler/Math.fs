@@ -79,3 +79,5 @@ module Math =
         let fib = Fibonacci.seq |> Seq.cache
         let fibNth n = fib |> Seq.item n
         Seq.unfold (fun (a, b, c, n) -> Some((a, b, c), (a+b+c, (fibNth (2*n-1)) - b, (fibNth (2*n)), n+1))) (4I, 3I, 5I, 3)
+
+    let combinations n k = Factorial.value n / (Factorial.value k * Factorial.value (n-k)) 

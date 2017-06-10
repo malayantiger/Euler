@@ -61,6 +61,8 @@
     <Compile Include="Math.fs" />
     <Compile Include="Number.fs" />
     <Compile Include="Factorial.fs" />
+    <Compile Include="Math.fs" />
+    <Compile Include="Number.fs" />
     <Compile Include="Text.fs" />
     <Compile Include="File.fs" />
     <Compile Include="Problems.fs" />
