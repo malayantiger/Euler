@@ -28,10 +28,8 @@ module Math =
             then false
         else
             seq { 3I .. 2I .. bigint(sqrtn n) }
-            |> Seq.tryFind (fun x -> n % x = 0I)
-            |> function
-                | Some(x) -> false
-                | _ -> true
+            |> Seq.exists (fun x -> n % x = 0I)
+            |> not
         
     let coPrimes n = 
         positiveIntegers 
@@ -45,7 +43,7 @@ module Math =
         seq {
             yield! divisors
             yield! divisors |> Seq.map (fun x -> n / x)
-        }
+        } |> Seq.toList
 
     let primesTo n =
         let xs = [2I .. n]
@@ -55,7 +53,15 @@ module Math =
             | p::xs' -> eratos' (xs' |> List.except (seq { yield p*p; yield! [p*p+p .. p .. n] })) (p::ps)
         eratos' xs [] |> List.rev
 
-    let primeFactors = divisors >> Seq.filter (fun x -> isPrimeBig x)
+    let primesTo' n =
+        let sieve = seq { 2I .. bigint(sqrtn n) } |> Seq.filter isPrimeBig |> Seq.toList
+        seq {
+            for x in 2I..n do
+                if not (List.exists (fun y -> x % y = 0I && x <> y) sieve) then
+                    yield x
+        }
+
+    let primeFactors = divisors >> List.filter isPrimeBig
 
     let sigma n =
         positiveIntegers
@@ -68,3 +74,8 @@ module Math =
     let squareOfSums xs = (xs |> Seq.sum) |> pown <| 2
 
     let sumSquareDiff xs = (squareOfSums xs) - (sumOfSquares xs)
+
+    let pythagoreanTriplets = 
+        let fib = Fibonacci.seq |> Seq.cache
+        let fibNth n = fib |> Seq.item n
+        Seq.unfold (fun (a, b, c, n) -> Some((a, b, c), (a+b+c, (fibNth (2*n-1)) - b, (fibNth (2*n)), n+1))) (4I, 3I, 5I, 3)

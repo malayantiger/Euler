@@ -57,9 +57,9 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="List.fs" />
     <Compile Include="Digits.fs" />
+    <Compile Include="Fibonacci.fs" />
     <Compile Include="Math.fs" />
     <Compile Include="Number.fs" />
-    <Compile Include="Fibonacci.fs" />
     <Compile Include="Factorial.fs" />
     <Compile Include="Text.fs" />
     <Compile Include="File.fs" />

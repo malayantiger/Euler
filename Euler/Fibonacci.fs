@@ -12,5 +12,3 @@ module Fibonacci =
     let seq = Seq.unfold (fun (n1, n2) -> Some(n2, (n2, n1 + n2))) (0I, 1I)
 
     let value n = seq |> Seq.take n |> Seq.last
-
-    let findTermWithNDigits n = n |> Number.findIndexWithNDigits >> ((+) 1)

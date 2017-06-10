@@ -32,8 +32,8 @@ module Problems =
     [<Test>]
     let ``Problem 04 - Largest palindrome product`` () =
         seq {
-            for x in [101I..999I] do
-            for y in [101I..999I] do
+            for x in 101I..999I do
+            for y in 101I..999I do
                 let product = x * y
                 if product |> Number.isPalindrome then yield product
         }
@@ -62,6 +62,26 @@ module Problems =
         |> Seq.map (Seq.reduce (*))
         |> Seq.max
         |> should equal 23514624000I
+    
+    [<Test>]
+    let ``Problem 09 - Special Pythagorean triplet`` () =
+        let s = 1000
+        seq {
+            for a in 1..s/3 do
+            for b in 1..s/2 do
+                let c = s - a - b
+                if a*a + b*b = c*c then
+                    yield [a; b; c]
+        }
+        |> Seq.find (Seq.reduce (+) >> (=) s)
+        |> Seq.reduce (*)
+        |> should equal 31875000
+
+    [<Test>]
+    let ``Problem 10 - Summation of primes`` () =
+        Math.primesTo' 2000000I
+        |> Seq.sum
+        |> should equal 31875000
 
     [<Test>]
     let ``Problem 13 - Large sum`` () =
@@ -114,5 +134,6 @@ module Problems =
     [<Test>]
     let ``Problem 25 - 1000-digit Fibonacci number`` () = 
         Fibonacci.seq
-        |> Fibonacci.findTermWithNDigits 1000 
+        |> Number.findIndexWithNDigits (1000)
+        |> (+) 1
         |> should equal 4782
