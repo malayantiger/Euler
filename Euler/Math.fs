@@ -23,11 +23,11 @@ module Math =
 
     let isCoPrime n x = gcd n x = 1
 
-    let isPrimeBig n = 
-        if n % 2I = 0I 
-            then false
-        else
-            seq { 3I .. 2I .. bigint(sqrtn n) }
+    let isPrime = function
+        | n when n = 2I || n = 3I -> true
+        | n when n > 3I && (n % 2I = 0I || n % 3I = 0I) -> false
+        | n ->
+            seq { 5I .. 2I .. bigint(sqrtn n) }
             |> Seq.exists (fun x -> n % x = 0I)
             |> not
         
@@ -45,23 +45,15 @@ module Math =
             yield! divisors |> Seq.map (fun x -> n / x)
         } |> Seq.toList
 
-    let primesTo n =
-        let xs = [2I .. n]
-        let rec eratos' xs ps =
-            match xs with
-            | [] -> ps
-            | p::xs' -> eratos' (xs' |> List.except (seq { yield p*p; yield! [p*p+p .. p .. n] })) (p::ps)
-        eratos' xs [] |> List.rev
-
-    let primesTo' n =
-        let sieve = seq { 2I .. bigint(sqrtn n) } |> Seq.filter isPrimeBig |> Seq.toList
+    let primesUpTo n =
+        let sieve = seq { 2I .. bigint(sqrtn n) } |> Seq.filter isPrime |> Seq.toList
         seq {
             for x in 2I..n do
                 if not (List.exists (fun y -> x % y = 0I && x <> y) sieve) then
                     yield x
         }
 
-    let primeFactors = divisors >> List.filter isPrimeBig
+    let primeFactors = divisors >> List.filter isPrime
 
     let sigma n =
         positiveIntegers

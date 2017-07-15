@@ -79,9 +79,9 @@ module Problems =
 
     [<Test>]
     let ``Problem 10 - Summation of primes`` () =
-        Math.primesTo' 2000000I
+        Math.primesUpTo 2000000I
         |> Seq.sum
-        |> should equal 31875000
+        |> should equal 142913828922I
 
     [<Test>]
     let ``Problem 13 - Large sum`` () =
@@ -142,3 +142,8 @@ module Problems =
         |> Number.findIndexWithNDigits (1000)
         |> (+) 1
         |> should equal 4782
+
+    [<Test>]
+    let ``Problem 26 - Reciprocal cycles`` () = 
+        Digits.ofFraction (1m/7m)
+        |> printf "%A"
